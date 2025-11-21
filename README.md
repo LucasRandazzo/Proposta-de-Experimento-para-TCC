@@ -18,7 +18,7 @@ EXP-GH-METRICS-2025-01
 - **Última atualização:** 21/11/2025  
 
 ### 1.5 Autores
-- **Lucas Randazzo** – Engenharia de Software – email@dominio.com
+- **Lucas Randazzo** – Engenharia de Software – lucasrandazzo2@gmail.com
 
 ### 1.6 Responsável principal (PI)
 **Lucas Randazzo**
