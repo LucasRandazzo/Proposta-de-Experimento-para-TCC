@@ -139,5 +139,408 @@ Baseado em princípios clássicos de IHC (Norman, Nielsen).
 
 ---
 
+## 3. Objetivos e questões (Goal / Question / Metric)
+
+### 3.1 Objetivo geral (Goal Template)
+
+**Analisar** a eficácia de um software com interface gráfica para mineração automatizada de repositórios GitHub e coleta de métricas de Pull Requests, **com o propósito de** avaliar sua eficiência, confiabilidade, completude e usabilidade, **sob a perspectiva** de pesquisadores e usuários técnicos, **no contexto** de estudos empíricos em Engenharia de Software que demandam extração de dados em larga escala.
+
+### 3.2 Objetivos específicos
+
+- **OE1 – Eficiência:** Avaliar se o software GUI melhora o desempenho da mineração em termos de tempo total, throughput e paralelismo.
+- **OE2 – Confiabilidade:** Avaliar a resiliência do processo, especialmente quanto à recuperação via checkpoints e redução de falhas.
+- **OE3 – Completude:** Avaliar se as métricas de PRs coletadas pela ferramenta são completas e consistentes em relação ao baseline tradicional.
+- **OE4 – Usabilidade:** Avaliar a acessibilidade e facilidade de uso do software para usuários com níveis variados de experiência.
+
+### 3.3 Questões de pesquisa
+
+#### **Para OE1 – Eficiência**
+- **Q1.1:** O software reduz o tempo total de mineração?
+- **Q1.2:** O software aumenta o throughput (PRs/min, repos/hora)?
+- **Q1.3:** O uso de paralelismo no software melhora o desempenho?
+
+#### **Para OE2 – Confiabilidade**
+- **Q2.1:** O software apresenta menos falhas que o método tradicional?
+- **Q2.2:** Os checkpoints permitem retomada eficaz após interrupções?
+- **Q2.3:** O sistema registra e sinaliza erros de forma adequada?
+
+#### **Para OE3 – Completude**
+- **Q3.1:** O software coleta a mesma quantidade de PRs que o método baseline?
+- **Q3.2:** As métricas de PR são equivalentes entre métodos?
+- **Q3.3:** Há perda de dados causada pelo paralelismo?
+
+#### **Para OE4 – Usabilidade**
+- **Q4.1:** Os usuários conseguem completar tarefas sem dificuldade?
+- **Q4.2:** A interface gráfica é percebida como intuitiva?
+- **Q4.3:** Os usuários preferem a GUI ao método tradicional?
+
+### 3.4 Métricas associadas (GQM)
+
+#### **Tabela GQM**
+
+| Objetivo | Pergunta | Métricas associadas |
+|----------|----------|----------------------|
+| OE1 | Q1.1 | M1 – Tempo total de execução; M2 – Tempo médio por repositório |
+| OE1 | Q1.2 | M3 – PRs/min; M4 – Repositórios/hora |
+| OE1 | Q1.3 | M5 – Tempo médio por thread; M6 – Speedup |
+| OE2 | Q2.1 | M7 – Taxa de falhas; M8 – Interrupções não tratadas |
+| OE2 | Q2.2 | M9 – Progresso recuperado; M10 – Tempo de retomada |
+| OE2 | Q2.3 | M11 – Eventos de erro registrados; M12 – Tempo de detecção |
+| OE3 | Q3.1 | M13 – Percentual de PRs coletados; M14 – Diferença absoluta de PRs |
+| OE3 | Q3.2 | M15 – Correlação entre métricas; M16 – Diferença média |
+| OE3 | Q3.3 | M17 – PRs perdidos por thread; M18 – Métricas incompletas (%) |
+| OE4 | Q4.1 | M19 – Tempo para completar tarefa; M20 – Taxa de sucesso |
+| OE4 | Q4.2 | M21 – SUS Score; M22 – Erros cometidos pelo usuário |
+| OE4 | Q4.3 | M23 – Preferência declarada; M24 – Satisfação geral |
+
+---
+
+### **Tabela abrangente de métricas**
+
+| Código | Nome da métrica | Descrição | Unidade | Fonte dos dados |
+|--------|------------------|-----------|----------|------------------|
+| M1 | Tempo total de execução | Tempo total do processo de mineração | minutos | logs do sistema |
+| M2 | Tempo médio por repositório | Média de tempo gasto em cada repositório | minutos | logs do sistema |
+| M3 | PRs por minuto | Throughput da mineração | PR/min | contagem de PRs |
+| M4 | Repositórios por hora | Fluxo de processamento | repos/hora | logs do sistema |
+| M5 | Tempo médio por thread | Tempo médio de execução paralela | minutos | logs de threads |
+| M6 | Speedup | Razão entre execução paralela e sequencial | adimensional | comparação experimental |
+| M7 | Taxa de falhas | Proporção de execuções com erros | % | relatórios de erro |
+| M8 | Interrupções não tratadas | Falhas que não foram recuperadas | contagem | logs |
+| M9 | Progresso recuperado | Percentual restaurado após retomada | % | checkpoints |
+| M10 | Tempo de retomada | Tempo entre falha e retomada | segundos | tempo de execução |
+| M11 | Eventos de erro | Número de erros detectados | contagem | logs |
+| M12 | Tempo de detecção de falha | Tempo até identificar erro | segundos | logs |
+| M13 | Percentual de PRs coletados | % de PRs coletados vs baseline | % | comparação de datasets |
+| M14 | Diferença de PRs | Quantidade absoluta coletada a menos ou a mais | contagem | datasets |
+| M15 | Correlação entre métricas | Correlação Pearson/Spearman entre métodos | coeficiente | cálculo estatístico |
+| M16 | Diferença média das métricas | Diferenças absolutas normalizadas | valor médio | estatística |
+| M17 | PRs perdidos por thread | PRs descartados por falha de thread | contagem | logs |
+| M18 | Métricas incompletas | Percentual de PRs com campos ausentes | % | dataset final |
+| M19 | Tempo para completar tarefa | Tempo para usuário executar ação | minutos | teste de usabilidade |
+| M20 | Taxa de sucesso | % de tarefas concluídas sem erro | % | sessão de testes |
+| M21 | SUS Score | Nota do System Usability Scale | pontos (0–100) | questionário SUS |
+| M22 | Erros do usuário | Quantidade de erros cometidos | contagem | observação |
+| M23 | Preferência declarada | % de usuários que preferem a GUI | % | questionário |
+| M24 | Satisfação geral | Avaliação do usuário | Likert (1–5) | questionário |
+
+---
+
+## 4. Escopo e contexto do experimento
+
+### 4.1 Escopo funcional / de processo
+
+**Incluído:**
+- execução do software GUI para mineração de PRs;
+- comparação com baseline baseado em scripts;
+- coleta de métricas de eficiência, confiabilidade e completude;
+- aplicação de testes de usabilidade.
+
+**Excluído:**
+- análise qualitativa do conteúdo dos PRs;
+- uso de APIs privadas ou datasets externos;
+- avaliação do código interno do software.
+
+### 4.2 Contexto do estudo
+
+O estudo ocorrerá em ambiente acadêmico, no contexto de um projeto de Engenharia de Software. Os participantes incluem estudantes e pesquisadores com familiaridade intermediária com GitHub. O projeto analisado não é crítico, mas envolve manipulação de grande volume de dados e execução prolongada.
+
+### 4.3 Premissas
+
+- A API do GitHub estará funcional durante o experimento.  
+- O ambiente terá conexão estável.  
+- Os participantes terão conhecimento básico sobre PRs.  
+- O software GUI estará funcional e estável para testes.
+
+### 4.4 Restrições
+
+- Tempo limitado de execução em laboratório;  
+- Disponibilidade limitada de tokens da API GitHub;  
+- Equipamentos com desempenho heterogêneo;  
+- Amostra pequena de usuários para testes.
+
+### 4.5 Limitações previstas
+
+- Resultados podem não generalizar para ambientes industriais;  
+- A variabilidade de comportamento da API pode afetar a medição;  
+- Perfil limitado dos participantes reduz validade externa.
+
+---
+
+## 5. Stakeholders e impacto esperado
+
+### 5.1 Stakeholders principais
+
+- Pesquisadores  
+- Estudantes  
+- Professores/orientadores  
+- Desenvolvedores  
+- Comunidade MSR  
+
+### 5.2 Interesses e expectativas
+
+| Stakeholder | Expectativas |
+|-------------|--------------|
+| Pesquisadores | Maior produtividade, datasets consistentes |
+| Estudantes | Ferramenta fácil de usar |
+| Professores | Estudos reprodutíveis |
+| Desenvolvedores | Análises internas de code review |
+| Comunidade MSR | Metodologia replicável |
+
+### 5.3 Impactos potenciais
+
+- Redução de tempo de mineração;  
+- Aumento da confiabilidade da coleta;  
+- Facilitação de estudos empíricos;  
+- Possível modificação do processo tradicional de coleta de dados.  
+
+---
+
+## 6. Riscos de alto nível, premissas e critérios de sucesso
+
+### 6.1 Riscos de alto nível
+
+- Falhas de rede ou API do GitHub;  
+- Dados incompletos por limitações de request;  
+- Baixa aceitação da GUI pelos usuários;  
+- Falhas críticas sem recuperação via checkpoint.
+
+### 6.2 Critérios de sucesso globais
+
+- Coleta de ≥ 95% dos PRs do baseline;  
+- Tempo de execução ≤ baseline;  
+- SUS ≥ 70;  
+- Taxa de falhas reduzida ou mitigada.
+
+### 6.3 Critérios de parada antecipada
+
+- Indisponibilidade da API GitHub;  
+- Falha crítica no software GUI;  
+- Ambiente inadequado para execução;  
+- Mudança de escopo institucional.
+
+---
+
+## 7. Modelo conceitual e hipóteses
+
+### 7.1 Modelo conceitual do experimento
+Explique, em texto ou esquema, como você acredita que os fatores influenciam as respostas (por exemplo, “técnica A reduz defeitos em relação a B”).
+
+### 7.2 Hipóteses formais (H0, H1)
+Formule explicitamente as hipóteses nulas e alternativas para cada questão principal, incluindo a direção esperada do efeito quando fizer sentido.
+
+### 7.3 Nível de significância e considerações de poder
+Defina o nível de significância (por exemplo, α = 0,05) e comente o que se espera em termos de poder estatístico, relacionando-o ao tamanho de amostra planejado.
+
+---
+
+## 8. Variáveis, fatores, tratamentos e objetos de estudo
+
+### 8.1 Objetos de estudo
+Descreva o que será efetivamente manipulado ou analisado (módulos de código, requisitos, tarefas, casos de teste, issues, etc.).
+
+### 8.2 Sujeitos / participantes (visão geral)
+Caracterize em alto nível quem serão os participantes (desenvolvedores, testadores, estudantes, etc.), sem ainda entrar em detalhes de seleção.
+
+### 8.3 Variáveis independentes (fatores) e seus níveis
+Liste os fatores que serão manipulados (por exemplo, técnica, ferramenta, processo) e indique os níveis de cada um (A/B, X/Y, alto/baixo).
+
+### 8.4 Tratamentos (condições experimentais)
+Descreva claramente cada condição de experimento (grupo controle, tratamento 1, tratamento 2, etc.) e o que distingue uma da outra.
+
+### 8.5 Variáveis dependentes (respostas)
+Informe as medidas de resultado que você observará (por exemplo, número de defeitos, esforço em horas, tempo de conclusão, satisfação).
+
+### 8.6 Variáveis de controle / bloqueio
+Liste fatores que você não está estudando diretamente, mas que serão mantidos constantes ou usados para formar blocos (por exemplo, experiência, tipo de tarefa).
+
+### 8.7 Possíveis variáveis de confusão conhecidas
+Identifique fatores que podem distorcer os resultados (como diferenças de contexto, motivação ou carga de trabalho) e que você pretende monitorar.
+
+---
+
+## 9. Desenho experimental
+
+### 9.1 Tipo de desenho (completamente randomizado, blocos, fatorial, etc.)
+Indique qual tipo de desenho será utilizado e justifique brevemente por que ele é adequado ao problema e às restrições.
+
+### 9.2 Randomização e alocação
+Explique o que será randomizado (sujeitos, tarefas, ordem de tratamentos) e como a randomização será feita na prática (ferramentas, procedimentos).
+
+### 9.3 Balanceamento e contrabalanço
+Descreva como você garantirá que os grupos fiquem comparáveis (balanceamento) e como lidará com efeitos de ordem ou aprendizagem (contrabalanço).
+
+### 9.4 Número de grupos e sessões
+Informe quantos grupos existirão e quantas sessões ou rodadas cada sujeito ou grupo irá executar, com uma breve justificativa.
+
+---
+
+## 10. População, sujeitos e amostragem
+
+### 10.1 População-alvo
+Descreva qual é a população real que você deseja representar com o experimento (por exemplo, “desenvolvedores Java de times de produto web”).
+
+### 10.2 Critérios de inclusão de sujeitos
+Especifique os requisitos mínimos para um participante ser elegível (experiência, conhecimento, papel, disponibilidade, etc.).
+
+### 10.3 Critérios de exclusão de sujeitos
+Liste condições que impedem participação (conflitos de interesse, falta de skills essenciais, restrições legais ou éticas).
+
+### 10.4 Tamanho da amostra planejado (por grupo)
+Defina quantos participantes você pretende ter no total e em cada grupo, relacionando a decisão com poder, recursos e contexto.
+
+### 10.5 Método de seleção / recrutamento
+Explique como os participantes serão escolhidos (amostra de conveniência, sorteio, convite aberto, turma de disciplina, time específico).
+
+### 10.6 Treinamento e preparação dos sujeitos
+Descreva qual treinamento ou material preparatório será fornecido para nivelar entendimento e reduzir vieses por falta de conhecimento.
+
+---
+
+## 11. Instrumentação e protocolo operacional
+
+### 11.1 Instrumentos de coleta (questionários, logs, planilhas, etc.)
+Liste todos os instrumentos que serão usados para coletar dados (arquivos, formulários, scripts, ferramentas), com uma breve descrição do papel de cada um.
+
+### 11.2 Materiais de suporte (instruções, guias)
+Descreva as instruções escritas, guias rápidos, slides ou outros materiais que serão fornecidos a participantes e administradores do experimento.
+
+### 11.3 Procedimento experimental (protocolo – visão passo a passo)
+Escreva, em ordem, o que acontecerá na operação (do convite ao encerramento), de modo que alguém consiga executar o experimento seguindo esse roteiro.
+
+### 11.4 Plano de piloto (se haverá piloto, escopo e critérios de ajuste)
+Indique se um piloto será realizado, com que participantes e objetivos, e defina que tipo de ajuste do protocolo poderá ser feito com base nesse piloto.
+
+---
+
+## 12. Plano de análise de dados (pré-execução)
+
+### 12.1 Estratégia geral de análise (como responderá às questões)
+Explique, em alto nível, como os dados coletados serão usados para responder cada questão de pesquisa ou de negócio.
+
+### 12.2 Métodos estatísticos planejados
+Liste os principais testes ou técnicas estatísticas que pretende usar (por exemplo, t-teste, ANOVA, testes não paramétricos, regressão).
+
+### 12.3 Tratamento de dados faltantes e outliers
+Defina previamente as regras para lidar com dados ausentes e valores extremos, evitando decisões oportunistas após ver os resultados.
+
+### 12.4 Plano de análise para dados qualitativos (se houver)
+Descreva como você tratará dados qualitativos (entrevistas, comentários, observações), especificando a técnica de análise (codificação, categorias, etc.).
+
+---
+
+## 13. Avaliação de validade (ameaças e mitigação)
+
+### 13.1 Validade de conclusão
+Liste ameaças que podem comprometer a robustez das conclusões estatísticas (baixo poder, violação de suposições, erros de medida) e como pretende mitigá-las.
+
+### 13.2 Validade interna
+Identifique ameaças relacionadas a causas alternativas para os efeitos observados (history, maturation, selection, etc.) e explique suas estratégias de controle.
+
+### 13.3 Validade de constructo
+Refleta se as medidas escolhidas realmente representam os conceitos de interesse e descreva como você reduzirá ambiguidades de interpretação.
+
+### 13.4 Validade externa
+Discuta em que contextos os resultados podem ser generalizados e quais diferenças de cenário podem limitar essa generalização.
+
+### 13.5 Resumo das principais ameaças e estratégias de mitigação
+Faça uma síntese das ameaças mais críticas e das ações planejadas, de preferência em forma de lista ou tabela simples.
+
+---
+
+## 14. Ética, privacidade e conformidade
+
+### 14.1 Questões éticas (uso de sujeitos, incentivos, etc.)
+Descreva potenciais questões éticas (pressão para participar, uso de estudantes, incentivos, riscos de exposição) e como serão tratadas.
+
+### 14.2 Consentimento informado
+Explique como os participantes serão informados sobre objetivos, riscos, benefícios e como registrarão seu consentimento.
+
+### 14.3 Privacidade e proteção de dados
+Indique que dados pessoais serão coletados, como serão protegidos (anonimização, pseudoanonimização, controle de acesso) e por quanto tempo serão mantidos.
+
+### 14.4 Aprovações necessárias (comitê de ética, jurídico, DPO, etc.)
+Liste órgãos ou pessoas que precisam aprovar o experimento (comitê de ética, jurídico, DPO, gestores) e o status atual dessas aprovações.
+
+---
+
+## 15. Recursos, infraestrutura e orçamento
+
+### 15.1 Recursos humanos e papéis
+Identifique os membros da equipe do experimento e descreva brevemente o papel e responsabilidade de cada um.
+
+### 15.2 Infraestrutura técnica necessária
+Liste ambientes, servidores, ferramentas, repositórios e integrações que devem estar disponíveis para executar o experimento.
+
+### 15.3 Materiais e insumos
+Relacione materiais físicos ou digitais necessários (máquinas, licenças, formulários, dispositivos) que precisam estar prontos antes da operação.
+
+### 15.4 Orçamento e custos estimados
+Faça uma estimativa dos principais custos envolvidos (horas de pessoas, serviços, licenças, infraestrutura) e a fonte de financiamento.
+
+---
+
+## 16. Cronograma, marcos e riscos operacionais
+
+### 16.1 Macrocronograma (até o início da execução)
+Defina as principais datas e marcos (conclusão do plano, piloto, revisão, início da operação) com uma visão de tempo realista.
+
+### 16.2 Dependências entre atividades
+Indique quais atividades dependem de outras para começar (por exemplo, treinamento após aprovação ética), deixando essas dependências claras.
+
+### 16.3 Riscos operacionais e plano de contingência
+Liste riscos ligados a cronograma, disponibilidade de pessoas ou recursos, e descreva ações de contingência caso esses riscos se materializem.
+
+---
+
+## 17. Governança do experimento
+
+### 17.1 Papéis e responsabilidades formais
+Defina quem decide, quem executa, quem revisa e quem apenas deve ser informado, deixando claro o fluxo de responsabilidade.
+
+### 17.2 Ritos de acompanhamento pré-execução
+Descreva as reuniões, checkpoints e revisões previstos antes da execução, incluindo frequência e participantes.
+
+### 17.3 Processo de controle de mudanças no plano
+Explique como mudanças no desenho ou no escopo do experimento serão propostas, analisadas, aprovadas e registradas.
+
+---
+
+## 18. Plano de documentação e reprodutibilidade
+
+### 18.1 Repositórios e convenções de nomeação
+Indique onde o plano, instrumentos, scripts e dados (futuros) serão armazenados e quais convenções de nomes serão usadas.
+
+### 18.2 Templates e artefatos padrão
+Liste os modelos (questionários, formulários, checklists, scripts) que serão usados e onde podem ser encontrados.
+
+### 18.3 Plano de empacotamento para replicação futura
+Descreva o que será organizado desde já (documentos, scripts, instruções) para facilitar a replicação do experimento por outras equipes ou no futuro.
+
+---
+
+## 19. Plano de comunicação
+
+### 19.1 Públicos e mensagens-chave pré-execução
+Liste os grupos que precisam ser comunicados e quais mensagens principais devem receber (objetivos, escopo, datas, impactos esperados).
+
+### 19.2 Canais e frequência de comunicação
+Defina por quais canais (e-mail, reuniões, Slack/Teams, etc.) e com que frequência as comunicações serão feitas.
+
+### 19.3 Pontos de comunicação obrigatórios
+Especifique os eventos que exigem comunicação formal (aprovação do plano, mudanças relevantes, adiamentos, cancelamentos).
+
+---
+
+## 20. Critérios de prontidão para execução (Definition of Ready)
+
+### 20.1 Checklist de prontidão (itens que devem estar completos)
+Liste os itens que precisam estar finalizados e aprovados (plano, instrumentos, aprovação ética, recursos, comunicação) para autorizar o início da operação.
+
+### 20.2 Aprovações finais para iniciar a operação
+Indique quem precisa dar o “ok final” (nomes ou cargos) e como esse aceite será registrado antes da execução começar.
+
+
+
 
 
