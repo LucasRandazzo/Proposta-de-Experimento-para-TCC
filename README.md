@@ -509,54 +509,206 @@ Adequado porque:
 ## 10. População, sujeitos e amostragem
 
 ### 10.1 População-alvo
-Descreva qual é a população real que você deseja representar com o experimento (por exemplo, “desenvolvedores Java de times de produto web”).
+A população-alvo consiste em usuários técnicos que realizam mineração de dados em repositórios GitHub, incluindo:
+- Pesquisadores de Engenharia de Software
+- Estudantes com experiência em Git e GitHub
+- Profissionais que utilizam análises de PRs para pesquisa ou desenvolvimento
+
+---
 
 ### 10.2 Critérios de inclusão de sujeitos
-Especifique os requisitos mínimos para um participante ser elegível (experiência, conhecimento, papel, disponibilidade, etc.).
+- Conhecimento básico/intermediário de Git e GitHub  
+- Capacidade de executar scripts e/ou ferramentas GUI  
+- Disponibilidade para participar de todas as etapas  
+- Capacidade de interpretação básica de métricas  
+
+---
 
 ### 10.3 Critérios de exclusão de sujeitos
-Liste condições que impedem participação (conflitos de interesse, falta de skills essenciais, restrições legais ou éticas).
+- Nunca ter utilizado GitHub  
+- Inabilidade para operar scripts ou GUI  
+- Impossibilidade de realizar todas as sessões  
+- Conflitos diretos com o desenvolvimento da ferramenta  
+
+---
 
 ### 10.4 Tamanho da amostra planejado (por grupo)
-Defina quantos participantes você pretende ter no total e em cada grupo, relacionando a decisão com poder, recursos e contexto.
+- 6 a 10 participantes  
+- Divididos igualmente entre GUI e Script  
+- O tamanho amostral humano é pequeno, mas os objetos (PRs e repositórios) garantem volume estatístico adequado.
+
+---
 
 ### 10.5 Método de seleção / recrutamento
-Explique como os participantes serão escolhidos (amostra de conveniência, sorteio, convite aberto, turma de disciplina, time específico).
+- Amostragem por conveniência  
+- Convite enviado a estudantes e pesquisadores do laboratório ou da disciplina  
+- Confirmação de participação via formulário  
+
+---
 
 ### 10.6 Treinamento e preparação dos sujeitos
-Descreva qual treinamento ou material preparatório será fornecido para nivelar entendimento e reduzir vieses por falta de conhecimento.
+Os participantes receberão:
+- Guia rápido da GUI  
+- Guia rápido dos scripts  
+- Checklist operacional  
+- Roteiro de execução  
+- Ambiente configurado com tokens e repositórios  
 
 ---
 
 ## 11. Instrumentação e protocolo operacional
 
-### 11.1 Instrumentos de coleta (questionários, logs, planilhas, etc.)
-Liste todos os instrumentos que serão usados para coletar dados (arquivos, formulários, scripts, ferramentas), com uma breve descrição do papel de cada um.
+### 11.1 Instrumentos de coleta
 
-### 11.2 Materiais de suporte (instruções, guias)
-Descreva as instruções escritas, guias rápidos, slides ou outros materiais que serão fornecidos a participantes e administradores do experimento.
+| Instrumento | Função |
+|-------------|--------|
+| Aplicação GUI | Execução paralela com checkpoints |
+| Scripts tradicionais | Baseline de comparação |
+| Logs gerados automaticamente | Registro de tempo, falhas, throughput |
+| CSV final | Consolidação das métricas dos PRs |
+| Questionário SUS | Avaliação de usabilidade |
+| Planilha de métricas | Consolidação final dos dados |
+| Roteiro operacional | Padronização do procedimento |
 
-### 11.3 Procedimento experimental (protocolo – visão passo a passo)
-Escreva, em ordem, o que acontecerá na operação (do convite ao encerramento), de modo que alguém consiga executar o experimento seguindo esse roteiro.
+---
 
-### 11.4 Plano de piloto (se haverá piloto, escopo e critérios de ajuste)
-Indique se um piloto será realizado, com que participantes e objetivos, e defina que tipo de ajuste do protocolo poderá ser feito com base nesse piloto.
+### 11.2 Materiais de suporte
+- Manual do usuário da GUI  
+- Manual de execução do script  
+- Documento com descrição das métricas  
+- Checklist do ambiente  
+- Modelo de relatório de execução  
+
+---
+
+### 11.3 Procedimento experimental (protocolo – passo a passo)
+
+O processo segue as etapas:
+
+1. Preparar o ambiente  
+2. Configurar tokens, instalar GUI e scripts  
+3. Distribuir lista fixa de repositórios  
+4. Selecionar e instruir os participantes  
+5. Alocar participantes aleatoriamente em GUI ou Script  
+6. Realizar execuções completas dos tratamentos  
+7. Coletar logs, CSVs e métricas  
+8. Aplicar questionário SUS  
+9. Consolidar dados  
+10. Preparar dataset final para análises estatísticas  
+
+---
+
+### Fluxograma do processo operacional
+
+```mermaid
+flowchart TD
+
+    A[Início do Experimento] --> B[Preparação do Ambiente]
+    B --> B1[Configurar tokens de API]
+    B --> B2[Instalar e validar GUI]
+    B --> B3[Disponibilizar scripts tradicionais]
+    B --> B4[Distribuir lista fixa de repositórios]
+
+    B4 --> C[Seleção e Preparação dos Participantes]
+    C --> C1[Verificar critérios de inclusão]
+    C --> C2[Aplicar instruções padronizadas]
+    C --> C3[Randomizar participantes nos tratamentos]
+
+    C3 --> D[Execução dos Tratamentos]
+    D --> D1[Grupo GUI - Executar mineração com interface gráfica]
+    D --> D2[Grupo Script - Executar mineração via linha de comando]
+
+    D1 --> E[Coleta de Dados Operacionais]
+    D2 --> E
+
+    E --> E1[Extrair métricas: tempo, throughput, falhas]
+    E --> E2[Registrar PRs coletados e completude]
+    E --> E3[Salvar logs e resultados CSV]
+
+    E3 --> F[Avaliação Pós-Execução]
+    F --> F1[Aplicar Questionário SUS]
+    F --> F2[Coletar feedback qualitativo]
+
+    F --> G[Consolidação dos Dados]
+    G --> G1[Unificar CSVs]
+    G --> G2[Gerar dataset final padronizado]
+
+    G2 --> H[Fim - Pronto para Análise Estatística]
+```
+---
+    
+### 11.4 Plano de piloto
+
+O piloto terá as seguintes características:
+
+- Execução piloto com **2 participantes**
+- Uso de **4 repositórios** para validar o fluxo completo
+
+Ajustes serão realizados caso ocorram:
+
+- Falhas operacionais
+- Inconsistências nas métricas geradas
+- Dificuldades relatadas pelos participantes
+- Logs insuficientes para análise estatística
 
 ---
 
 ## 12. Plano de análise de dados (pré-execução)
 
-### 12.1 Estratégia geral de análise (como responderá às questões)
-Explique, em alto nível, como os dados coletados serão usados para responder cada questão de pesquisa ou de negócio.
+### 12.1 Estratégia geral de análise
+
+A análise seguirá as etapas:
+
+1. Consolidar o dataset final (GUI vs Script)
+2. Aplicar testes de normalidade
+3. Comparar métricas de:
+   - Eficiência
+   - Confiabilidade
+   - Completude
+4. Avaliar significância estatística entre os métodos
+5. Avaliar usabilidade via SUS
+6. Relacionar resultados com hipóteses H0/H1
+7. Gerar conclusões sobre o impacto da ferramenta
+
+---
 
 ### 12.2 Métodos estatísticos planejados
-Liste os principais testes ou técnicas estatísticas que pretende usar (por exemplo, t-teste, ANOVA, testes não paramétricos, regressão).
+
+- **Shapiro-Wilk** — testar normalidade dos dados  
+- **t-test** — se houver normalidade  
+- **Mann–Whitney U** — se não houver normalidade  
+- **Correlação de Spearman** — avaliar associação entre métricas contínuas  
+- **Teste Qui-quadrado** — comparar proporções de falhas  
+- **Intervalos de Confiança (95%)** — medir precisão das diferenças  
+- **Cálculo do SUS Score** — medir usabilidade da GUI  
+
+---
 
 ### 12.3 Tratamento de dados faltantes e outliers
-Defina previamente as regras para lidar com dados ausentes e valores extremos, evitando decisões oportunistas após ver os resultados.
 
-### 12.4 Plano de análise para dados qualitativos (se houver)
-Descreva como você tratará dados qualitativos (entrevistas, comentários, observações), especificando a técnica de análise (codificação, categorias, etc.).
+**Dados faltantes:**
+- Exclusão quando < 5%  
+- Imputação simples, se necessário  
+
+**Outliers:**
+- Avaliação por:
+  - **IQR** (Interquartile Range)
+  - **Contexto experimental** (ex.: falha de rede ou API)
+- Outliers operacionais serão documentados e não removidos sem justificativa formal
+
+---
+
+### 12.4 Plano de análise para dados qualitativos
+
+Os dados qualitativos (comentários e impressões dos participantes) serão analisados por:
+
+- **Análise de conteúdo**
+- **Categorização temática**, incluindo:
+  - Intuitividade
+  - Dificuldades
+  - Percepção geral da ferramenta
+- **Triangulação** com SUS Score
+- Busca por diferenças qualitativas entre GUI e Script
 
 ---
 
