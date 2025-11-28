@@ -324,54 +324,185 @@ O estudo ocorrerá em ambiente acadêmico, no contexto de um projeto de Engenhar
 ## 7. Modelo conceitual e hipóteses
 
 ### 7.1 Modelo conceitual do experimento
-Explique, em texto ou esquema, como você acredita que os fatores influenciam as respostas (por exemplo, “técnica A reduz defeitos em relação a B”).
+
+O experimento baseia-se na premissa de que a **forma de execução do processo de mineração de Pull Requests (GUI vs Script)** atua como um fator que **modifica o comportamento do sistema de coleta de dados** em três dimensões principais:
+
+1. **Eficiência**
+   - Tempo total de execução
+   - Throughput (PRs/min, repositórios/hora)
+   - Speedup obtido pelo paralelismo da GUI
+
+2. **Confiabilidade**
+   - Ocorrência de falhas
+   - Capacidade de retomada via checkpoints
+   - Estabilidade da execução
+
+3. **Completude**
+   - Quantidade de PRs coletados
+   - Integridade das métricas de PR
+   - Consistência entre execuções
+
+Essas dimensões, influenciadas pelo fator “Forma de Execução”, refletem-se diretamente nas **métricas produzidas no dataset final**, permitindo avaliar rigorosamente o impacto entre os dois métodos.
+
+---
 
 ### 7.2 Hipóteses formais (H0, H1)
-Formule explicitamente as hipóteses nulas e alternativas para cada questão principal, incluindo a direção esperada do efeito quando fizer sentido.
+
+#### Eficiência
+- **H0-E1:** Não há diferença significativa no tempo total de mineração entre GUI e Script.  
+- **H1-E1:** A GUI reduz o tempo total de mineração.
+
+- **H0-E2:** O throughput não difere entre os métodos.  
+- **H1-E2:** A GUI aumenta o throughput.
+
+#### Confiabilidade
+- **H0-C1:** A taxa de falhas é equivalente entre GUI e Script.  
+- **H1-C1:** A GUI apresenta menor taxa de falhas.
+
+- **H0-C2:** O uso de checkpoints não melhora a retomada.  
+- **H1-C2:** A GUI possibilita retomada mais eficaz.
+
+#### Completude
+- **H0-K1:** A quantidade de PRs coletados é igual nos dois métodos.  
+- **H1-K1:** Há diferença significativa na quantidade de PRs coletados.
+
+- **H0-K2:** As métricas coletadas são equivalentes entre os métodos.  
+- **H1-K2:** As métricas coletadas diferem significativamente.
+
+---
 
 ### 7.3 Nível de significância e considerações de poder
-Defina o nível de significância (por exemplo, α = 0,05) e comente o que se espera em termos de poder estatístico, relacionando-o ao tamanho de amostra planejado.
+
+- **Nível de significância**: α = 0,05  
+- **Poder estatístico esperado**: ≥ 0,80  
+
+A grande quantidade de PRs e repositórios envolvidos tende a fornecer tamanho amostral adequado para detecção de diferenças reais entre os tratamentos.
 
 ---
 
 ## 8. Variáveis, fatores, tratamentos e objetos de estudo
 
 ### 8.1 Objetos de estudo
-Descreva o que será efetivamente manipulado ou analisado (módulos de código, requisitos, tarefas, casos de teste, issues, etc.).
+- Repositórios GitHub selecionados.
+- Conjuntos de Pull Requests válidos.
+- Execuções completas dos processos de coleta via GUI e via Script.
+
+---
 
 ### 8.2 Sujeitos / participantes (visão geral)
-Caracterize em alto nível quem serão os participantes (desenvolvedores, testadores, estudantes, etc.), sem ainda entrar em detalhes de seleção.
+- Pesquisadores, estudantes ou usuários técnicos.
+- Responsáveis apenas por acionar os métodos e registrar resultados.
+
+---
 
 ### 8.3 Variáveis independentes (fatores) e seus níveis
-Liste os fatores que serão manipulados (por exemplo, técnica, ferramenta, processo) e indique os níveis de cada um (A/B, X/Y, alto/baixo).
+
+| Tipo | Nome | Descrição | Níveis |
+|------|------|------------|--------|
+| Fator principal | Forma de execução | Método utilizado para minerar PRs | GUI, Script |
+
+---
 
 ### 8.4 Tratamentos (condições experimentais)
-Descreva claramente cada condição de experimento (grupo controle, tratamento 1, tratamento 2, etc.) e o que distingue uma da outra.
+
+| Tratamento | Descrição |
+|------------|-----------|
+| T1 — GUI | Execução completa utilizando o software com interface gráfica |
+| T2 — Script | Execução completa utilizando scripts tradicionais em linha de comando |
+
+---
 
 ### 8.5 Variáveis dependentes (respostas)
-Informe as medidas de resultado que você observará (por exemplo, número de defeitos, esforço em horas, tempo de conclusão, satisfação).
+
+| Variável | Descrição |
+|----------|-----------|
+| Tempo total | Tempo total de mineração |
+| Throughput | PRs por minuto / repositórios por hora |
+| Speedup | Ganho relativo obtido com paralelismo |
+| Taxa de falhas | Proporção de execuções com erros |
+| PRs coletados | Quantidade total de PRs coletados |
+| Qualidade das métricas | Completude e consistência dos dados |
+
+---
 
 ### 8.6 Variáveis de controle / bloqueio
-Liste fatores que você não está estudando diretamente, mas que serão mantidos constantes ou usados para formar blocos (por exemplo, experiência, tipo de tarefa).
 
-### 8.7 Possíveis variáveis de confusão conhecidas
-Identifique fatores que podem distorcer os resultados (como diferenças de contexto, motivação ou carga de trabalho) e que você pretende monitorar.
+| Variável | Como será controlada |
+|----------|-----------------------|
+| Lista de repositórios | Mesma lista em ambos os métodos |
+| Ambiente | Mesma máquina e conexão |
+| Tokens da API | Mesma distribuição e quantidade |
+| Período | Execuções realizadas no mesmo intervalo |
+
+---
+
+### 8.7 Variáveis de confusão conhecidas
+
+| Possível confusor | Estratégia de mitigação |
+|-------------------|--------------------------|
+| Instabilidade da API do GitHub | Monitoramento e repetição controlada |
+| Oscilações de rede | Ambiente fixo e monitorado |
+| Comportamento de threads | Execuções replicadas e logs detalhados |
+
+---
+
+### Tabela geral de variáveis
+
+| Tipo | Nome | Descrição |
+|------|------|------------|
+| Independente | Forma de execução | GUI vs Script |
+| Dependente | Tempo total | Medida de eficiência |
+| Dependente | Throughput | Fluxo de processamento |
+| Dependente | Speedup | Ganho obtido em paralelismo |
+| Dependente | Taxa de falhas | Confiabilidade |
+| Dependente | PRs coletados | Completude |
+| Dependente | Diferença das métricas | Qualidade dos dados |
+| Controle | Repositórios | Lista fixa |
+| Controle | Ambiente | Hardware/software idênticos |
+| Confusão | API GitHub | Variável externa |
+
+---
+
+### Tabela de fatores, tratamentos e combinações
+
+Como o experimento possui apenas um fator binário, as combinações são simples:
+
+| Fator | Níveis | Combinação |
+|-------|--------|------------|
+| Forma de execução | GUI | GUI |
+| Forma de execução | Script | Script |
 
 ---
 
 ## 9. Desenho experimental
 
-### 9.1 Tipo de desenho (completamente randomizado, blocos, fatorial, etc.)
-Indique qual tipo de desenho será utilizado e justifique brevemente por que ele é adequado ao problema e às restrições.
+### 9.1 Tipo de desenho
+Desenho **completamente randomizado**, com dois tratamentos (GUI e Script).  
+Adequado porque:
+
+- Repositórios são independentes.
+- Execução automática evita efeitos de aprendizagem.
+- Simplicidade e robustez em comparações diretas.
+
+---
 
 ### 9.2 Randomização e alocação
-Explique o que será randomizado (sujeitos, tarefas, ordem de tratamentos) e como a randomização será feita na prática (ferramentas, procedimentos).
+- Repositórios serão distribuídos aleatoriamente entre os dois tratamentos.
+- A ordem das execuções também será randomizada.
+- Será utilizada uma semente fixa (**seed = 42**) para manter reprodutibilidade.
+
+---
 
 ### 9.3 Balanceamento e contrabalanço
-Descreva como você garantirá que os grupos fiquem comparáveis (balanceamento) e como lidará com efeitos de ordem ou aprendizagem (contrabalanço).
+- A divisão será balanceada (mesmo número aproximado de repositórios por tratamento).
+- O contrabalanço pode ser aplicado por meio de inversão da ordem de execução (GUI → Script e Script → GUI), se necessário.
+- Como o processo é automatizado, os efeitos de ordem são negligenciáveis.
+
+---
 
 ### 9.4 Número de grupos e sessões
-Informe quantos grupos existirão e quantas sessões ou rodadas cada sujeito ou grupo irá executar, com uma breve justificativa.
+- **Grupos:** 2 (GUI e Script)
+- **Sessões:** Cada grupo executará o processo completo uma vez, com possibilidade de repetição para reforçar análise estatística.
 
 ---
 
