@@ -715,113 +715,278 @@ Os dados qualitativos (comentários e impressões dos participantes) serão anal
 ## 13. Avaliação de validade (ameaças e mitigação)
 
 ### 13.1 Validade de conclusão
-Liste ameaças que podem comprometer a robustez das conclusões estatísticas (baixo poder, violação de suposições, erros de medida) e como pretende mitigá-las.
+Ameaças e respectivas mitigações:
+
+- **Baixo poder estatístico**  
+  - Mitigação: grande número de PRs e repositórios coletados compensa o baixo número de sujeitos.
+- **Violação de suposições estatísticas (normalidade, homocedasticidade)**  
+  - Mitigação: testes não paramétricos serão utilizados quando necessário.
+- **Erros de medida nas métricas coletadas**  
+  - Mitigação: validação cruzada entre logs, CSVs e execução piloto.
+- **Correlação espúria entre variáveis**  
+  - Mitigação: uso de testes apropriados (Spearman) e inspeção visual dos dados.
+
+---
 
 ### 13.2 Validade interna
-Identifique ameaças relacionadas a causas alternativas para os efeitos observados (history, maturation, selection, etc.) e explique suas estratégias de controle.
+Ameaças e controles:
+
+- **History (eventos externos influenciando execuções)**  
+  - Mitigação: executações realizadas no mesmo período e mesma máquina.
+- **Selection (diferenças entre sujeitos)**  
+  - Mitigação: randomização entre tratamentos GUI/Script.
+- **Instrumentation (diferenças na forma de coleta)**  
+  - Mitigação: uso da mesma lista de repositórios e tokens.
+- **Maturation (fadiga ou aprendizagem)**  
+  - Irrelevante: execução automatizada.
+
+---
 
 ### 13.3 Validade de constructo
-Refleta se as medidas escolhidas realmente representam os conceitos de interesse e descreva como você reduzirá ambiguidades de interpretação.
+Riscos e mitigações:
+
+- **Métricas não representarem o conceito real de eficiência, confiabilidade ou completude**  
+  - Mitigação: uso de métricas amplamente aceitas em MSR (Mining Software Repositories).
+- **Ambiguidade de interpretação**  
+  - Mitigação: definições formais de todas as métricas no plano experimental.
+- **Viés do instrumento GUI**  
+  - Mitigação: comparação direta GUI vs Script usando mesma base de repositórios.
+
+---
 
 ### 13.4 Validade externa
-Discuta em que contextos os resultados podem ser generalizados e quais diferenças de cenário podem limitar essa generalização.
+Limitações e generalização:
+
+- **Contexto acadêmico** pode limitar generalização para ambientes industriais.  
+- **Perfil dos participantes** pode não representar profissionais experientes.  
+- **Restrição à API do GitHub** pode diferir de ambientes corporativos internos.
+
+Mitigação:
+- Documentação completa permitirá replicação por outras equipes.
+- Uso de repositórios amplamente variados reduz viés contextual.
+
+---
 
 ### 13.5 Resumo das principais ameaças e estratégias de mitigação
-Faça uma síntese das ameaças mais críticas e das ações planejadas, de preferência em forma de lista ou tabela simples.
+
+| Ameaça | Tipo | Mitigação |
+|--------|------|-----------|
+| Baixo poder estatístico | Conclusão | Grande número de PRs |
+| Instabilidade da API GitHub | Interna / Externa | Execuções repetidas |
+| Diferenças entre sujeitos | Interna | Randomização |
+| Ambiguidade das métricas | Constructo | Definições formais |
+| Generalização limitada | Externa | Documentação e replicação |
 
 ---
 
 ## 14. Ética, privacidade e conformidade
 
-### 14.1 Questões éticas (uso de sujeitos, incentivos, etc.)
-Descreva potenciais questões éticas (pressão para participar, uso de estudantes, incentivos, riscos de exposição) e como serão tratadas.
+### 14.1 Questões éticas
+- Uso de estudantes como sujeitos → risco de pressão involuntária.  
+  **Mitigação:** participação voluntária e não vinculada à nota.
+- Riscos de exposição de dados pessoais.  
+  **Mitigação:** coleta mínima necessária e anonimização.
+
+---
 
 ### 14.2 Consentimento informado
-Explique como os participantes serão informados sobre objetivos, riscos, benefícios e como registrarão seu consentimento.
+Participantes receberão:
+- Documento com objetivos, riscos e benefícios
+- Explicação clara sobre voluntariedade
+- Termo simples de consentimento digital
+
+Nenhum dado será coletado sem consentimento explícito.
+
+---
 
 ### 14.3 Privacidade e proteção de dados
-Indique que dados pessoais serão coletados, como serão protegidos (anonimização, pseudoanonimização, controle de acesso) e por quanto tempo serão mantidos.
+- Dados pessoais serão **anonimizados**  
+- Acesso restrito aos responsáveis  
+- Armazenamento seguro em repositório institucional  
+- Retenção de dados por até 12 meses após o experimento
 
-### 14.4 Aprovações necessárias (comitê de ética, jurídico, DPO, etc.)
-Liste órgãos ou pessoas que precisam aprovar o experimento (comitê de ética, jurídico, DPO, gestores) e o status atual dessas aprovações.
+---
+
+### 14.4 Aprovações necessárias
+- Aprovação do professor responsável pela disciplina  
+- Avaliação do comitê interno do curso (se aplicável)  
+- Não há dados sensíveis ou intervenção fisiológica: dispensa comitê clínico  
 
 ---
 
 ## 15. Recursos, infraestrutura e orçamento
 
 ### 15.1 Recursos humanos e papéis
-Identifique os membros da equipe do experimento e descreva brevemente o papel e responsabilidade de cada um.
+
+| Papel | Responsabilidade |
+|-------|------------------|
+| Pesquisador principal | Condução do experimento |
+| Assistente técnico | Preparação do ambiente |
+| Participantes | Execução dos tratamentos |
+| Analista | Interpretação dos resultados |
+
+---
 
 ### 15.2 Infraestrutura técnica necessária
-Liste ambientes, servidores, ferramentas, repositórios e integrações que devem estar disponíveis para executar o experimento.
+- Computadores com acesso à internet
+- Instalação da GUI e dos scripts
+- Tokens GitHub válidos
+- Ambiente Python configurado
+- Repositório Git para registro de artefatos
+
+---
 
 ### 15.3 Materiais e insumos
-Relacione materiais físicos ou digitais necessários (máquinas, licenças, formulários, dispositivos) que precisam estar prontos antes da operação.
+- Guias operacionais
+- Questionários SUS
+- Checklists
+- Logs e scripts de análise
+
+---
 
 ### 15.4 Orçamento e custos estimados
-Faça uma estimativa dos principais custos envolvidos (horas de pessoas, serviços, licenças, infraestrutura) e a fonte de financiamento.
+- Custo humano (horas de execução)  
+- Infraestrutura computacional básica (sem custo adicional)  
+- Nenhuma licença paga necessária  
 
 ---
 
 ## 16. Cronograma, marcos e riscos operacionais
 
-### 16.1 Macrocronograma (até o início da execução)
-Defina as principais datas e marcos (conclusão do plano, piloto, revisão, início da operação) com uma visão de tempo realista.
+### 16.1 Macrocronograma
+
+| Marco | Data |
+|-------|-------|
+| Finalização do plano experimental | Semana 1 |
+| Execução do piloto | Semana 2 |
+| Revisões e ajustes | Semana 3 |
+| Execução oficial | Semana 4 |
+| Consolidação dos dados | Semana 5 |
+| Análise estatística | Semana 6 |
+| Relatório final | Semana 7 |
+
+---
 
 ### 16.2 Dependências entre atividades
-Indique quais atividades dependem de outras para começar (por exemplo, treinamento após aprovação ética), deixando essas dependências claras.
+- Execução piloto depende da conclusão do plano  
+- Execução oficial depende dos ajustes do piloto  
+- Análise estatística depende da consolidação dos dados
 
-### 16.3 Riscos operacionais e plano de contingência
-Liste riscos ligados a cronograma, disponibilidade de pessoas ou recursos, e descreva ações de contingência caso esses riscos se materializem.
+---
+
+### 16.3 Riscos operacionais e contingência
+
+| Risco | Mitigação |
+|--------|-----------|
+| Instabilidade da API GitHub | Repetir coletas |
+| Falha de hardware | Equipamento reserva |
+| Participante desistir | Recrutamento adicional |
+| Dados incompletos | Logs adicionais e backup |
 
 ---
 
 ## 17. Governança do experimento
 
 ### 17.1 Papéis e responsabilidades formais
-Defina quem decide, quem executa, quem revisa e quem apenas deve ser informado, deixando claro o fluxo de responsabilidade.
+
+| Papel | Função |
+|-------|--------|
+| PI (responsável principal) | Decisão final e coordenação |
+| Administrador técnico | Montagem do ambiente |
+| Observador | Garantir aderência ao protocolo |
+| Estatístico | Validar análises |
+
+---
 
 ### 17.2 Ritos de acompanhamento pré-execução
-Descreva as reuniões, checkpoints e revisões previstos antes da execução, incluindo frequência e participantes.
+- Reuniões semanais curtas (15 min)  
+- Revisão dos logs do piloto  
+- Validação da randomização e checklist do ambiente  
 
-### 17.3 Processo de controle de mudanças no plano
-Explique como mudanças no desenho ou no escopo do experimento serão propostas, analisadas, aprovadas e registradas.
+---
+
+### 17.3 Processo de controle de mudanças
+- Mudanças propostas via documento formal  
+- Revisão pelo PI  
+- Aprovação registrada antes da execução  
+- Versões numeradas do plano  
 
 ---
 
 ## 18. Plano de documentação e reprodutibilidade
 
 ### 18.1 Repositórios e convenções de nomeação
-Indique onde o plano, instrumentos, scripts e dados (futuros) serão armazenados e quais convenções de nomes serão usadas.
+- Repositório Git oficial: `experimento-mineracao/`  
+- Convenções:  
+  - `docs/` para documentos  
+  - `scripts/` para ferramentas  
+  - `data/` para datasets  
+  - `results/` para saídas finais
+
+---
 
 ### 18.2 Templates e artefatos padrão
-Liste os modelos (questionários, formulários, checklists, scripts) que serão usados e onde podem ser encontrados.
+- Template de checklist
+- Modelo de SUS
+- Scripts padronizados de análise estatística
+- Template do relatório final
+
+---
 
 ### 18.3 Plano de empacotamento para replicação futura
-Descreva o que será organizado desde já (documentos, scripts, instruções) para facilitar a replicação do experimento por outras equipes ou no futuro.
+- Incluir scripts, datasets anonimizados e guia operacional  
+- Versão final do plano experimental  
+- Conjunto de instruções para repetição do experimento em outros contextos
 
 ---
 
 ## 19. Plano de comunicação
 
 ### 19.1 Públicos e mensagens-chave pré-execução
-Liste os grupos que precisam ser comunicados e quais mensagens principais devem receber (objetivos, escopo, datas, impactos esperados).
+
+| Público | Mensagem |
+|---------|----------|
+| Participantes | Objetivos, datas, tarefas |
+| Professor | Validação do plano e escopo |
+| Equipe técnica | Preparação do ambiente |
+
+---
 
 ### 19.2 Canais e frequência de comunicação
-Defina por quais canais (e-mail, reuniões, Slack/Teams, etc.) e com que frequência as comunicações serão feitas.
+- E-mail semanal  
+- Reuniões quinzenais  
+- Atualizações rápidas via Discord/Teams  
+
+---
 
 ### 19.3 Pontos de comunicação obrigatórios
-Especifique os eventos que exigem comunicação formal (aprovação do plano, mudanças relevantes, adiamentos, cancelamentos).
+- Aprovação final do plano  
+- Mudanças significativas no protocolo  
+- Resultados preliminares  
+- Finalização da análise
 
 ---
 
 ## 20. Critérios de prontidão para execução (Definition of Ready)
 
-### 20.1 Checklist de prontidão (itens que devem estar completos)
-Liste os itens que precisam estar finalizados e aprovados (plano, instrumentos, aprovação ética, recursos, comunicação) para autorizar o início da operação.
+### 20.1 Checklist de prontidão
+
+- Plano experimental aprovado  
+- Ambiente configurado  
+- Scripts e GUI testados  
+- Lista de repositórios validada  
+- Tokens operacionais  
+- Participantes treinados  
+- Materiais de apoio distribuídos  
+
+---
 
 ### 20.2 Aprovações finais para iniciar a operação
-Indique quem precisa dar o “ok final” (nomes ou cargos) e como esse aceite será registrado antes da execução começar.
+
+- Aprovação do PI  
+- Aceite do professor da disciplina  
+- Registro da aprovação em documento oficial  
+
 
 
 
