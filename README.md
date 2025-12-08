@@ -68,7 +68,7 @@ O foco não é apenas a implementação, mas **avaliar experimentalmente** se es
 
 #### **Evidências internas — Laboratório 03 (Disciplina: Laboratório de Experimentação de Software)**  
 O experimento se apoia no trabalho realizado no **Laboratório 03** da disciplina de *Laboratório de Experimentação de Software*, disponível em:  
-🔗 **https://github.com/o-romeroo/lab-experimentacao-03**
+**https://github.com/o-romeroo/lab-experimentacao-03**
 
 Esse laboratório teve como objetivo analisar métricas de Pull Requests em repositórios populares do GitHub, seguindo critérios como:
 
@@ -93,23 +93,23 @@ A literatura em Mineração de Repositórios de Software (MSR) e Code Review des
 Principais referências:
 
 1. **Rahman & Roy (2014)** — *An Insight into the Pull Requests of GitHub*  
-   🔗 https://dl.acm.org/doi/10.1145/2597073.2597121  
+   https://dl.acm.org/doi/10.1145/2597073.2597121  
    Estuda fatores que diferenciam PRs aceitos de rejeitados em dezenas de projetos open source.
 
 2. **Kalliamvakou et al. (2014)** — *The Promises and Perils of Mining GitHub*  
-   🔗 https://chisel.cs.uvic.ca/pubs/kalliamvakou-MSR2014.pdf  
+   https://chisel.cs.uvic.ca/pubs/kalliamvakou-MSR2014.pdf  
    Discute limitações dos dados da plataforma e riscos ao minerar GitHub sem critérios rigorosos.
 
 3. **Yang et al. (2024)** — *A Survey on Modern Code Review: Progresses, Challenges and Opportunities*  
-   🔗 https://github.com/watreyoung/MCR-Survey  
+   https://github.com/watreyoung/MCR-Survey  
    Apresenta o estado da arte em revisão de código moderna.
 
 4. **Vidoni (2022)** — *A systematic process for Mining Software Repositories*  
-   🔗 https://www.sciencedirect.com/science/article/pii/S0950584921002317  
+   https://www.sciencedirect.com/science/article/pii/S0950584921002317  
    SLR sobre técnicas e desafios da mineração de repositórios.
 
 5. **Wessel et al. (2023)** — *GitHub Actions: The Impact on the Pull Request Process*  
-   🔗 https://www.ime.usp.br/~gerosa/papers/Wessel_EMSE_Actions.pdf  
+   https://www.ime.usp.br/~gerosa/papers/Wessel_EMSE_Actions.pdf  
    Investiga como automações afetam PRs.
 
 Essas evidências reforçam a relevância científica do tema e a necessidade de ferramentas de mineração mais acessíveis e automatizadas.
@@ -123,12 +123,12 @@ O experimento fundamenta-se em quatro eixos:
 #### **(1) Mineração de Repositórios de Software (MSR)**  
 Base teórica para extrair e analisar artefatos como PRs.  
 Referência:  
-🔗 Kalliamvakou et al. (2014) – https://chisel.cs.uvic.ca/pubs/kalliamvakou-MSR2014.pdf
+Kalliamvakou et al. (2014) – https://chisel.cs.uvic.ca/pubs/kalliamvakou-MSR2014.pdf
 
 #### **(2) Métricas de Pull Requests**  
 Métricas como tamanho, interação e tempo de análise são amplamente utilizadas na literatura para caracterizar processos de revisão.  
 Referência:  
-🔗 Rahman & Roy (2014) – https://dl.acm.org/doi/10.1145/2597073.2597121
+Rahman & Roy (2014) – https://dl.acm.org/doi/10.1145/2597073.2597121
 
 #### **(3) Paralelismo e Tolerância a Falhas**  
 Conceitos herdados de sistemas distribuídos orientam o uso de paralelismo e checkpoints para lidar com execuções longas.
