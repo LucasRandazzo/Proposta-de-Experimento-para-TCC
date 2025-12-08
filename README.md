@@ -6,7 +6,7 @@
 Avaliação de um Software com Interface Gráfica para Mineração Automatizada de Repositórios GitHub e Análise de Métricas de Pull Requests utilizando Paralelismo e Checkpoints
 
 ### 1.2 ID / código
-EXP-GH-METRICS-2025-01
+TCC-EXP-1.0
 
 ### 1.3 Versão do documento e histórico de revisão
 | Versão | Data       | Descrição                             |
