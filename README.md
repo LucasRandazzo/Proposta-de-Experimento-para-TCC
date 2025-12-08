@@ -275,7 +275,6 @@ O estudo ocorrerá em ambiente acadêmico, no contexto de um projeto de Engenhar
 - Estudantes  
 - Professores/orientadores  
 - Desenvolvedores  
-- Comunidade MSR  
 
 ### 5.2 Interesses e expectativas
 
@@ -285,7 +284,6 @@ O estudo ocorrerá em ambiente acadêmico, no contexto de um projeto de Engenhar
 | Estudantes | Ferramenta fácil de usar |
 | Professores | Estudos reprodutíveis |
 | Desenvolvedores | Análises internas de code review |
-| Comunidade MSR | Metodologia replicável |
 
 ### 5.3 Impactos potenciais
 
