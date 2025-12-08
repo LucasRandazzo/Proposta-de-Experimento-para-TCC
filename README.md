@@ -147,7 +147,7 @@ Baseado em princípios clássicos de IHC (Norman, Nielsen).
 
 ### 3.2 Objetivos específicos
 
-- **OE1 – Eficiência:** Avaliar se o software GUI melhora o desempenho da mineração em termos de tempo total, throughput e paralelismo.
+- **OE1 – Eficiência:** Avaliar se o software GUI melhora o desempenho da mineração em termos de tempo total, taxa de transferência e paralelismo.
 - **OE2 – Confiabilidade:** Avaliar a resiliência do processo, especialmente quanto à recuperação via checkpoints e redução de falhas.
 - **OE3 – Completude:** Avaliar se as métricas de PRs coletadas pela ferramenta são completas e consistentes em relação ao baseline tradicional.
 - **OE4 – Usabilidade:** Avaliar a acessibilidade e facilidade de uso do software para usuários com níveis variados de experiência.
@@ -156,7 +156,7 @@ Baseado em princípios clássicos de IHC (Norman, Nielsen).
 
 #### **Para OE1 – Eficiência**
 - **Q1.1:** O software reduz o tempo total de mineração?
-- **Q1.2:** O software aumenta o throughput (PRs/min, repos/hora)?
+- **Q1.2:** O software aumenta a taxa de transferência? (PRs/min, repos/hora)?
 - **Q1.3:** O uso de paralelismo no software melhora o desempenho?
 
 #### **Para OE2 – Confiabilidade**
@@ -201,7 +201,7 @@ Baseado em princípios clássicos de IHC (Norman, Nielsen).
 |--------|------------------|-----------|----------|------------------|
 | M1 | Tempo total de execução | Tempo total do processo de mineração | minutos | logs do sistema |
 | M2 | Tempo médio por repositório | Média de tempo gasto em cada repositório | minutos | logs do sistema |
-| M3 | PRs por minuto | Throughput da mineração | PR/min | contagem de PRs |
+| M3 | PRs por minuto | Taxa de transferência da mineração | PR/min | contagem de PRs |
 | M4 | Repositórios por hora | Fluxo de processamento | repos/hora | logs do sistema |
 | M5 | Tempo médio por thread | Tempo médio de execução paralela | minutos | logs de threads |
 | M6 | Speedup | Razão entre execução paralela e sequencial | adimensional | comparação experimental |
@@ -329,7 +329,7 @@ O experimento baseia-se na premissa de que a **forma de execução do processo d
 
 1. **Eficiência**
    - Tempo total de execução
-   - Throughput (PRs/min, repositórios/hora)
+   - Taxa de transferência (PRs/min, repositórios/hora)
    - Speedup obtido pelo paralelismo da GUI
 
 2. **Confiabilidade**
@@ -352,8 +352,8 @@ Essas dimensões, influenciadas pelo fator “Forma de Execução”, refletem-s
 - **H0-E1:** Não há diferença significativa no tempo total de mineração entre GUI e Script.  
 - **H1-E1:** A GUI reduz o tempo total de mineração.
 
-- **H0-E2:** O throughput não difere entre os métodos.  
-- **H1-E2:** A GUI aumenta o throughput.
+- **H0-E2:** A taxa de transferência não difere entre os métodos.  
+- **H1-E2:** A GUI aumenta a taxa de transferência.
 
 #### Confiabilidade
 - **H0-C1:** A taxa de falhas é equivalente entre GUI e Script.  
@@ -417,7 +417,7 @@ A grande quantidade de PRs e repositórios envolvidos tende a fornecer tamanho a
 | Variável | Descrição |
 |----------|-----------|
 | Tempo total | Tempo total de mineração |
-| Throughput | PRs por minuto / repositórios por hora |
+| Taxa de transferência | PRs por minuto / repositórios por hora |
 | Speedup | Ganho relativo obtido com paralelismo |
 | Taxa de falhas | Proporção de execuções com erros |
 | PRs coletados | Quantidade total de PRs coletados |
@@ -452,7 +452,7 @@ A grande quantidade de PRs e repositórios envolvidos tende a fornecer tamanho a
 |------|------|------------|
 | Independente | Forma de execução | GUI vs Script |
 | Dependente | Tempo total | Medida de eficiência |
-| Dependente | Throughput | Fluxo de processamento |
+| Dependente | Taxa de transferência | Fluxo de processamento |
 | Dependente | Speedup | Ganho obtido em paralelismo |
 | Dependente | Taxa de falhas | Confiabilidade |
 | Dependente | PRs coletados | Completude |
@@ -564,7 +564,7 @@ Os participantes receberão:
 |-------------|--------|
 | Aplicação GUI | Execução paralela com checkpoints |
 | Scripts tradicionais | Baseline de comparação |
-| Logs gerados automaticamente | Registro de tempo, falhas, throughput |
+| Logs gerados automaticamente | Registro de tempo, falhas, taxa de transferência |
 | CSV final | Consolidação das métricas dos PRs |
 | Questionário SUS | Avaliação de usabilidade |
 | Planilha de métricas | Consolidação final dos dados |
@@ -621,7 +621,7 @@ flowchart TD
     D1 --> E[Coleta de Dados Operacionais]
     D2 --> E
 
-    E --> E1[Extrair métricas: tempo, throughput, falhas]
+    E --> E1[Extrair métricas: tempo, taxa de transferência, falhas]
     E --> E2[Registrar PRs coletados e completude]
     E --> E3[Salvar logs e resultados CSV]
 
