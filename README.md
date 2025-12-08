@@ -15,7 +15,7 @@ TCC-EXP-1.0
 
 ### 1.4 Datas (criação, última atualização)
 - **Criação:** 21/11/2025  
-- **Última atualização:** 21/11/2025  
+- **Última atualização:** 02/12/2025  
 
 ### 1.5 Autores
 - **Lucas Randazzo** – Engenharia de Software – lucasrandazzo2@gmail.com
