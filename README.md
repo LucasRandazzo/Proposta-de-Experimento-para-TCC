@@ -3,7 +3,7 @@
 ## 1. Identificação básica
 
 ### 1.1 Título do experimento
-Avaliação de um Software com Interface Gráfica para Mineração Automatizada de Repositórios GitHub e Análise de Métricas de Pull Requests utilizando Paralelismo e Checkpoints
+Avaliação de um Software com Interface Gráfica para Mineração Automatizada de Repositórios GitHub e Análise de Métricas de Pull Requests
 
 ### 1.2 ID / código
 TCC-EXP-1.0
