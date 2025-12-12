@@ -15,7 +15,7 @@ TCC-EXP-1.0
 
 ### 1.4 Datas (criação, última atualização)
 - **Criação:** 21/11/2025  
-- **Última atualização:** 08/12/2025  
+- **Última atualização:** 12/12/2025  
 
 ### 1.5 Autores
 - **Lucas Randazzo** – Engenharia de Software – lucasrandazzo2@gmail.com
@@ -24,7 +24,7 @@ TCC-EXP-1.0
 **Lucas Randazzo**
 
 ### 1.7 Projeto / iniciativa relacionada
-Este experimento faz parte da proposta de desenvolvimento de um **software instalável com interface gráfica**, cujo objetivo é facilitar a mineração de repositórios GitHub e o cálculo de métricas de Pull Requests para fins de análise empírica em Engenharia de Software.
+Este experimento faz parte da proposta de desenvolvimento de um **software instalável com interface gráfica (Graphical User Interface – GUI)**, cujo objetivo é facilitar a mineração de repositórios GitHub e o cálculo de métricas de Pull Requests para fins de análise empírica em Engenharia de Software.
 
 ---
 
